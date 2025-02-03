@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CascadingDropdownsDemo.MainPage"
+             xmlns:vm="clr-namespace:CascadingDropdownsDemo.ViewModels">
+
+    <ContentPage.BindingContext>
+        <vm:MainViewModel />
+    </ContentPage.BindingContext>
+
+    <VerticalStackLayout Padding="20" Spacing="20">
+
+        <!-- Search Bar for Filtering Level 1 Categories -->
+        <Entry Placeholder="Search categories..."
+               Text="{Binding SearchQuery, Mode=TwoWay}"
+               ClearButtonVisibility="WhileEditing" />
+
+        <!-- Level 1 Category Picker (Filtered) -->
+        <Picker Title="Select Category Level 1"
+                ItemsSource="{Binding FilteredLevel1Categories}"
+                ItemDisplayBinding="{Binding Name}"
+                SelectedItem="{Binding SelectedLevel1Category, Mode=TwoWay}" />
+        
+        <!-- Level 2 Category Picker (Filtered based on selected Level 1)-->
+        <Picker Title="Select Category Level 2"
+                ItemsSource="{Binding FilteredLevel2Categories}"
+                ItemDisplayBinding="{Binding Name}"
+                SelectedItem="{Binding SelectedLevel2Category, Mode=TwoWay}" />
+        
+        <!-- Level 3 Category Picker -->
+        <Picker Title="Select Category Level 3"
+                ItemsSource="{Binding FilteredLevel3Categories}"
+                ItemDisplayBinding="{Binding Name}"
+                SelectedItem="{Binding SelectedLevel3Category, Mode=TwoWay}" />
+
+         <!-- Level 4 Category Picker -->
+        <Picker Title="Select Category Level 4"
+                ItemsSource="{Binding FilteredLevel4Categories}"
+                ItemDisplayBinding="{Binding Name}"
+                SelectedItem="{Binding SelectedLevel4Category, Mode=TwoWay}" />
+
+        <!-- Selected Category ID -->
+        <Label Text="{Binding SelectedCategoryId, StringFormat='Selected Category ID: {0}'}"
+               FontSize="18"
+               TextColor="Blue"/>
+
+    </VerticalStackLayout>
+
+</ContentPage>
+
