@@ -22,6 +22,7 @@ namespace CascadingDropdownsDemo.ViewModels
         public ObservableCollection<Category> Level4Categories { get; set; } = new();
         public ObservableCollection<Category> FilteredLevel4Categories { get; set; } = new();
 
+        #region Selection Properties
         private int selectedCategoryId;
         public int SelectedCategoryId
         {
@@ -48,6 +49,7 @@ namespace CascadingDropdownsDemo.ViewModels
                     OnPropertyChanged();
                     UpdateLevel2Categories();
                     UpdateSelectedCategoryId();
+                    IsLevel2Visible = selectedLevel1Category != null;
                 }
             }
         }
@@ -64,6 +66,7 @@ namespace CascadingDropdownsDemo.ViewModels
                     OnPropertyChanged();
                     UpdateLevel3Categories();
                     UpdateSelectedCategoryId();
+                    IsLevel3Visible = selectedLevel2Category != null;
                 }
             }
         }
@@ -80,6 +83,7 @@ namespace CascadingDropdownsDemo.ViewModels
                     OnPropertyChanged();
                     UpdateLevel4Categories();
                     UpdateSelectedCategoryId();
+                    IsLevel4Visible = selectedLevel3Category != null;
                 }
             }
         }
@@ -114,11 +118,55 @@ namespace CascadingDropdownsDemo.ViewModels
             }
         }
 
+        #endregion
+
+        #region Visibility Properties
+
+        private bool isLevel2Visible;
+        public bool IsLevel2Visible
+        {
+            get => isLevel2Visible;
+            set
+            {
+                isLevel2Visible = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool isLevel3Visible;
+        public bool IsLevel3Visible
+        {
+            get => isLevel3Visible;
+            set
+            {
+                isLevel3Visible = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool isLevel4Visible;
+        public bool IsLevel4Visible
+        {
+            get => isLevel4Visible;
+            set
+            {
+                isLevel4Visible = value;
+                OnPropertyChanged();
+            }
+        }
+        #endregion
+
         public MainViewModel()
         {
             LoadCategories();
+            IsLevel2Visible = false;
+            IsLevel3Visible = false;
+            IsLevel4Visible = false;
         }
 
+        #region Load and Filter Category Methods
+
+        // TODO: I would create a CategoryService and move these methods into it, more reusable KLH
         private void FilterCategories()
         {
             if (string.IsNullOrWhiteSpace(SearchQuery))
@@ -147,6 +195,9 @@ namespace CascadingDropdownsDemo.ViewModels
             // Initialize with all categories in the list
             FilteredLevel1Categories = new ObservableCollection<Category>(Level1Categories);
         }
+        #endregion
+
+        #region Update Category Methods
 
         private void UpdateLevel2Categories()
         {
@@ -198,13 +249,15 @@ namespace CascadingDropdownsDemo.ViewModels
 
         private void UpdateSelectedCategoryId()
         {
-            // Set ID only if 4th-level category is selected
+            // Set ID only if 4th-level category is selected,
+            // uncomment below and remove condition in parser to set L1,L2,etc. KLH
             SelectedCategoryId = SelectedLevel4Category?.catID ?? 0;
                                  //?? SelectedLevel3Category?.catID
                                  //?? SelectedLevel2Category?.catID
                                  //?? SelectedLevel1Category?.catID
                                  //?? 0;
         }
+        #endregion
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)

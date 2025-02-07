@@ -25,19 +25,22 @@
         <Picker Title="Select Category Level 2"
                 ItemsSource="{Binding FilteredLevel2Categories}"
                 ItemDisplayBinding="{Binding Name}"
-                SelectedItem="{Binding SelectedLevel2Category, Mode=TwoWay}" />
+                SelectedItem="{Binding SelectedLevel2Category, Mode=TwoWay}"
+                IsVisible="{Binding IsLevel2Visible}"/>
         
         <!-- Level 3 Category Picker -->
         <Picker Title="Select Category Level 3"
                 ItemsSource="{Binding FilteredLevel3Categories}"
                 ItemDisplayBinding="{Binding Name}"
-                SelectedItem="{Binding SelectedLevel3Category, Mode=TwoWay}" />
+                SelectedItem="{Binding SelectedLevel3Category, Mode=TwoWay}"
+                IsVisible="{Binding IsLevel3Visible}" />
 
          <!-- Level 4 Category Picker -->
         <Picker Title="Select Category Level 4"
                 ItemsSource="{Binding FilteredLevel4Categories}"
                 ItemDisplayBinding="{Binding Name}"
-                SelectedItem="{Binding SelectedLevel4Category, Mode=TwoWay}" />
+                SelectedItem="{Binding SelectedLevel4Category, Mode=TwoWay}"
+                IsVisible="{Binding IsLevel4Visible}"/>
 
         <!-- Selected Category ID -->
         <Label Text="{Binding SelectedCategoryId, StringFormat='Selected Category ID: {0}'}"

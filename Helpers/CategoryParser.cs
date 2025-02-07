@@ -9,7 +9,7 @@ namespace CascadingDropdownsDemo.Helpers
 		{
 			var categoryTree = new List<Category>();
 
-            // For quick lookups, more performant
+            // For quick lookups, more performant KLH
             var categoryLookup = new Dictionary<string, Category>();
 
 			foreach (var category in categories)
@@ -21,7 +21,7 @@ namespace CascadingDropdownsDemo.Helpers
 
 				string fullPath = "";
 
-                // We only need catId assigned at the last (4th level) category
+                // We only need catId assigned at the last (4th level) category KLH
                 for (int i = 0; i < parts.Length; i++)
                 {
                     string part = parts[i];
@@ -32,6 +32,7 @@ namespace CascadingDropdownsDemo.Helpers
                         var newCategory = new Category
                         {
                             Name = part,
+                            // You can change this condition to get category ID from upper level(L1, L2, etc) category in the hierarchy KLH
                             catID = (i == parts.Length - 1) ? category.catID : 0,
                             Level2Categories = new List<Category>()
                         };
